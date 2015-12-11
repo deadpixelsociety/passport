@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.thedeadpixelsociety.passport.*
-import kotlin.text.Regex
 
 @Suppress("UNCHECKED_CAST")
 fun <T : View> Activity.findView(id: Int): T = findViewById(id) as T
@@ -38,16 +37,17 @@ class MainActivity() : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        editText.addRule({ view, text -> text?.matches(Regex("[0-9]{3}-[0-9]{3}-[0-9]{4}")) ?: false },
-                { "A valid phone number is required." })
+        addRules()
+    }
 
-        textInputLayout.addRule(email(), { "A valid email address is required." })
+    private fun addRules() {
+        editText.validator().add(Passport.Rules.phoneRequired)
+        textInputLayout.validator().add(Passport.Rules.emailRequired)
     }
 
     override fun onPause() {
-        super.onPause()
+        clearRules()
 
-        editText.clearRules()
-        textInputLayout.clearRules()
+        super.onPause()
     }
 }
