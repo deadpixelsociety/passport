@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/passport_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:android.support.design="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,8 +10,8 @@
         android:id="@android:id/edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="Phone (ex 555-555-1234)" />
+        android:hint="Phone (ex 555-555-1234)"
+        android:inputType="phone" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@android:id/inputArea"
