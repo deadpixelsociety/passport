@@ -14,7 +14,6 @@ fun <V : View> V.validator(create: (V) -> ViewValidator<V>): ViewValidator<V> {
     var validator = validatorTag()
     if (validator == null) {
         validator = create(this)
-        setTag(R.id.passport_validator_tag, validator)
     }
 
     return validator
