@@ -45,7 +45,7 @@ abstract class ViewValidator<V : View>(view: V) {
             return false
         } else {
             error = null
-            return false
+            return true
         }
     }
 

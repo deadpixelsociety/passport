@@ -32,7 +32,7 @@ class MainActivity() : AppCompatActivity() {
         // Rules can easily be chained as both pre-defined and custom variants.
         textInputLayout.validator()
                 .add(Passport.Rules.emailRequired)
-                .add({ view, string -> false }, { "This rule always fails." })
+                //.add({ view, string -> false }, { "This rule always fails." })
 
         // Rules can be pre-defined and used in many places.
         val rule = Rule({ view, string -> true }, { "This rule always passes." })
