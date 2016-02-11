@@ -1,6 +1,8 @@
 # passport
 A Kotlin-based Android view validation library with a simple DSL.
 
+[![](https://jitpack.io/v/deadpixelsociety/passport.svg)](https://jitpack.io/#deadpixelsociety/passport)
+
 Usage
 -----
 #### Create Rules
@@ -26,6 +28,19 @@ Custom validators allow for any view type to be managed. See the [SwitchCompat e
 
 See the [example activity](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/MainActivity.kt).
 
+#### Gradle
+````
+allprojects {
+	repositories {
+		...
+		maven { url "https://jitpack.io" }
+	}
+}
+
+dependencies {
+    compile 'com.github.deadpixelsociety:passport:1.0.1'
+}
+````
 License
 -------
 ````
