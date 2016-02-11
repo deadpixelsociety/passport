@@ -1,5 +1,8 @@
 buildscript {
-    ext.kotlin_version = '1.0.0-beta-3595'
+    ext {
+        androidSupportVersion = '23.1.1'
+        kotlinVersion = '1.0.0-rc-1036'
+    }
 
     repositories {
         mavenCentral()
@@ -8,7 +11,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
@@ -19,14 +22,9 @@ repositories {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.android.support:design:23.1.1'
-}
-
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         versionCode 1
@@ -51,3 +49,13 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
+
+dependencies {
+    // Kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    // Support
+    compile "com.android.support:design:$androidSupportVersion"
+    compile "com.android.support:support-v4:$androidSupportVersion"
+}
+

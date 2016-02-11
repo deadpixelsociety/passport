@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">Example</string>
+    <string name="app_name">Passport Example</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="value_required">A value is required.</string>
+    <string name="valid_phone_required">A valid phone number is required.</string>
+    <string name="hint_phone">Phone (ex 555–555–1234)</string>
+    <string name="hint_email">Email</string>
+    <string name="validate">Validate</string>
+    <string name="reset">reset</string>
 </resources>
