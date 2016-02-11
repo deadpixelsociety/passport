@@ -1,24 +1,30 @@
 # passport
-A Kotlin-based Android text validation library.
+A Kotlin-based Android text validation library with a simple DSL.
 
 Usage
 -----
-#### Create a Rule
+#### Create Rules
+Capture the returned Passport object to invoke validation when required.
 ````
-val rule = Rule({ view, text -> !text.isNullOrEmpty() }, { "A value is required." })
-````
-#### Add to View
-````
-editText.validator().add(rule)
-textInputLayout.validator().add(rule)
+passport {
+    with(editText, EditTextValidator()) {
+        rule({ !it.isNullOrEmpty() }, { "A value is required." })
+        rule({ it?.length > 3 ?: false }, { "The value must be 3 characters or more." })
+    }
+}
 ````
 #### Validate
+A specific view, view group, fragment or activity can be targeted for validation.
 ````
-if(editText.validator().validate())
+val validator = passport { <snip> }
+if(validator.validate(this)) {
     // Valid!
+}
 ````
+#### Custom Validators
+Custom validators allow for any view type to be managed. See the [SwitchCompat example](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/SwitchCompatValidator.kt).
 
-See [an example activity](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/MainActivity.kt) for more in-depth usage.
+See the [example activity](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/MainActivity.kt).
 
 License
 -------
