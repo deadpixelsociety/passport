@@ -1,5 +1,5 @@
 # passport
-A Kotlin-based Android text validation library with a simple DSL.
+A Kotlin-based Android view validation library with a simple DSL.
 
 Usage
 -----
