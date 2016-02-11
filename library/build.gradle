@@ -3,16 +3,6 @@ buildscript {
         androidSupportVersion = '23.1.1'
         kotlinVersion = '1.0.0-rc-1036'
     }
-
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    }
 }
 
 repositories {
@@ -21,6 +11,10 @@ repositories {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.github.dcendents.android-maven'
+
+version = '1.0'
+group = 'com.github.deadpixelsociety'
 
 android {
     compileSdkVersion 23
@@ -59,3 +53,25 @@ dependencies {
     compile "com.android.support:support-v4:$androidSupportVersion"
 }
 
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
