@@ -1,9 +1,16 @@
 buildscript {
+    ext {
+        androidGradleVersion = '1.5.0'
+        kotlinVersion = '1.0.0-rc-1036'
+    }
+
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath "com.android.tools.build:gradle:$androidGradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
     }
 }
