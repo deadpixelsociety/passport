@@ -7,7 +7,3 @@ buildscript {
         classpath 'com.android.tools.build:gradle:1.5.0'
     }
 }
-
-apply plugin: 'maven-publish'
-
-group = 'com.github.deadpixelsociety'
