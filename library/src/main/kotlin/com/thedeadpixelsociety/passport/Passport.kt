@@ -1,56 +1,61 @@
 package com.thedeadpixelsociety.passport
 
-import kotlin.text.Regex
+import android.app.Activity
+import android.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import com.thedeadpixelsociety.passport.validators.ViewValidator
 
-object Passport {
-    object Rules {
-        val emailRequired = Rule(email(), { "A valid email address is required." })
-        // source: http://stackoverflow.com/a/123666
-        val phoneRequired = Rule(matches("^(?:(?:\\+?1\\s*(?:[.-]\\s*)?)?(?:\\(\\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\\s*\\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\\s*(?:[.-]\\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\\s*(?:[.-]\\s*)?([0-9]{4})(?:\\s*(?:#|x\\.?|ext\\.?|extension)\\s*(\\d+))?$"),
-                { "A valid phone number is required." })
-        val numbersOnly = Rule(numeric(), { "Only numbers may be used." })
-        val lettersOnly = Rule(alpha(), { "Only letters may be used." })
-        val alphanumericOnly = Rule(alpha(), { "Only letters and numbers may be used." })
+class Passport {
+    fun <V : View, T> with(view: V, validator: ViewValidator<V, T>, func: ViewValidator<V, T>.() -> Unit): Passport {
+        validator.func()
+        view.setTag(R.id.passport_validator_tag, validator)
+        return this
     }
 
-    fun matches(pattern: String) = matches(Regex(pattern))
-    fun matches(regex: Regex): (View?, String?) -> Boolean = { view, text -> text?.matches(regex) ?: false }
-    fun doesNotMatch(pattern: String) = doesNotMatch(Regex(pattern))
-    fun doesNotMatch(regex: Regex): (View?, String?) -> Boolean = { view, text -> !(text?.matches(regex) ?: false) }
-
-    fun notEmpty(): (View?, String?) -> Boolean = { view, text -> !text.isNullOrEmpty() }
-    fun notBlank(): (View?, String?) -> Boolean = { view, text -> !text.isNullOrBlank() }
-
-    fun length(min: Int = 0, max: Int = Int.MAX_VALUE): (View?, String?) -> Boolean = {
-        view, text ->
-        if (text != null) text.length >= min && text.length <= max else false
+    fun reset(view: View) {
+        walkViews(view, {
+            it.validatorTag()?.reset(it)
+            true
+        })
     }
 
-    fun alpha() = matches("[a-zA-Z]*")
-    fun alphanumeric() = matches("[a-zA-Z0-9]*")
-    fun email() = matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
-    fun numeric() = matches("[0-9]*")
-}
+    fun reset(fragment: Fragment) = fragment.view?.let { reset(it) }
 
-internal fun walkViews(root: View?, func: (View, ViewValidator<*>) -> Boolean): Boolean {
-    var valid = true
+    fun reset(fragment: android.support.v4.app.Fragment) = fragment.view?.let { reset(it) }
 
-    if (root != null) {
-        val validator = root.validatorTag()
-        if (validator != null) {
-            valid = func(root, validator)
-        } else if (root is ViewGroup) {
+    fun reset(activity: Activity) {
+        val root = (activity.findViewById(android.R.id.content) as? ViewGroup)?.getChildAt(0)
+        root?.let { reset(it) }
+    }
+
+    fun validate(view: View): Boolean {
+        return walkViews(view, { validateView(it) })
+    }
+
+    fun validate(fragment: Fragment) = fragment.view?.let { validate(it) } ?: true
+
+    fun validate(fragment: android.support.v4.app.Fragment) = fragment.view?.let { validate(it) } ?: true
+
+    fun validate(activity: Activity): Boolean {
+        val root = (activity.findViewById(android.R.id.content) as? ViewGroup)?.getChildAt(0)
+        return root?.let { validate(it) } ?: true
+    }
+
+    private fun walkViews(root: View, func: (View) -> Boolean): Boolean {
+        var valid = func(root)
+
+        if (valid && root is ViewGroup) {
             val results = arrayListOf<Boolean>()
-
-            for (i in 0..root.childCount)
+            for (i in 0..root.childCount - 1) {
                 results.add(walkViews(root.getChildAt(i), func))
+            }
 
             valid = results.all { it }
         }
+
+        return valid
     }
 
-    return valid
+    private fun validateView(view: View) = view.validatorTag()?.validate(view) ?: true
 }
