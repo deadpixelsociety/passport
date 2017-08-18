@@ -2,21 +2,19 @@ package com.thedeadpixelsociety.passport.example
 
 import android.support.v7.widget.SwitchCompat
 import android.widget.TextView
-import com.thedeadpixelsociety.passport.validators.SimpleViewValidator
+import com.thedeadpixelsociety.passport.BaseValidator
 
-class SwitchCompatValidator : SimpleViewValidator<SwitchCompat, Boolean>() {
-    override fun getValue(view: SwitchCompat): Boolean {
-        return view.isChecked
-    }
+class SwitchCompatValidator : BaseValidator<SwitchCompat, Boolean>() {
+    override fun value(target: SwitchCompat) = target.isChecked
 
-    override fun onFail(view: SwitchCompat, value: Boolean, message: String?) {
-        val errorView = view.getTag(R.id.error_view_tag) as? TextView
-        errorView?.text = message
-    }
-
-    override fun onPass(view: SwitchCompat, value: Boolean) {
-        val errorView = view.getTag(R.id.error_view_tag) as? TextView
+    override fun passed(target: SwitchCompat, value: Boolean) {
+        val errorView = target.getTag(R.id.error_view_tag) as? TextView
         errorView?.text = null
+    }
+
+    override fun failed(target: SwitchCompat, value: Boolean, messages: List<String>) {
+        val errorView = target.getTag(R.id.error_view_tag) as? TextView
+        errorView?.text = messages.joinToString(" ")
     }
 
     override fun reset(view: SwitchCompat) {
