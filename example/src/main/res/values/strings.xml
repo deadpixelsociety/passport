@@ -7,4 +7,6 @@
     <string name="hint_email">Email</string>
     <string name="validate">Validate</string>
     <string name="reset">reset</string>
+    <string name="valid">Valid</string>
+    <string name="invalid">Invalid</string>
 </resources>

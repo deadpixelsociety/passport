@@ -1,2 +1,2 @@
-include ':library', ':example'
+include ':core', ':example', ':support-fragment', ':design'
 

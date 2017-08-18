@@ -17,8 +17,8 @@ class SwitchCompatValidator : BaseValidator<SwitchCompat, Boolean>() {
         errorView?.text = messages.joinToString(" ")
     }
 
-    override fun reset(view: SwitchCompat) {
-        val errorView = view.getTag(R.id.error_view_tag) as? TextView
+    override fun reset(target: SwitchCompat) {
+        val errorView = target.getTag(R.id.error_view_tag) as? TextView
         errorView?.text = null
     }
 }

@@ -9,10 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.thedeadpixelsociety.passport.Functions
-import com.thedeadpixelsociety.passport.Passport
-import com.thedeadpixelsociety.passport.notEmpty
-import com.thedeadpixelsociety.passport.passport
+import com.thedeadpixelsociety.passport.*
 
 fun <T : View> Activity.findView(id: Int): T = findViewById(id)
 
@@ -28,8 +25,12 @@ class MainActivity : AppCompatActivity() {
     private val validator by lazy {
         passport {
             rules<String?>(phoneEdit) {
-                notEmpty()
-                rule({ Functions.numeric(it) }, { getString(R.string.valid_phone_required) })
+                numeric(getString(R.string.valid_phone_required))
+            }
+
+            rules<String?>(emailLayout) {
+                email()
+                length(8, 32)
             }
 
             rules<Boolean>(switchView) {
@@ -40,21 +41,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Passport.default(SwitchCompatValidator())
-
         setContentView(R.layout.activity_main)
+
+        // Set default custom validators.
+        Passport.default(SwitchCompatValidator())
+        Passport.default(TextInputLayoutValidator())
 
         switchView.setTag(R.id.error_view_tag, switchErrorView)
 
         validateButton.setOnClickListener {
             if (validator.validate(this)) {
-                textView.text = "Valid!"
+                textView.text = getString(R.string.valid)
             } else {
-                textView.text = "Invalid!"
+                textView.text = getString(R.string.invalid)
             }
         }
 
-        resetButton.setOnClickListener { validator.reset(this) }
+        resetButton.setOnClickListener {
+            validator.reset(this)
+            textView.text = null
+        }
     }
 }
