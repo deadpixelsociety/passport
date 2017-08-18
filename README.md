@@ -6,23 +6,38 @@ A Kotlin-based Android view validation library with a simple DSL.
 Usage
 -----
 #### Create Rules
-Capture the returned Passport object to invoke validation when required.
+Use the existing DSL rules or create custom rules to fit your needs. Capture the returned Passport 
+object to invoke validation when required.
 ````
 passport {
-    with(editText, EditTextValidator()) {
-        rule({ !it.isNullOrEmpty() }, { "A value is required." })
-        rule({ it?.length > 3 ?: false }, { "The value must be 3 characters or more." })
+    rules<String?>(phoneEdit) {
+        numeric(getString(R.string.valid_phone_required))
+    }
+    
+    rules<String?>(emailLayout) {
+        email()
+        length(8, 32)
+    }
+    
+    rules<Boolean>(switchView) {
+        rule({ it }, { "The switch must be on." })
     }
 }
 ````
+
 #### Validate
 A specific view, view group, fragment or activity can be targeted for validation.
 ````
 val validator = passport { <snip> }
-if(validator.validate(this)) {
+if(validator.validate(this, ValidationMethod.IMMEDIATE)) {
     // Valid!
 }
 ````
+Validation supports both batch and immediate modes:
+* Batch - All views and rules are processed before validation is complete.
+* Immediate - All views and rules are processed until a failure is found and validation completes 
+immediately.
+
 #### Custom Validators
 Custom validators allow for any view type to be managed. See the [SwitchCompat example](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/SwitchCompatValidator.kt).
 
@@ -38,9 +53,14 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.deadpixelsociety:passport:1.0.1'
+    compile 'com.github.deadpixelsociety.passport:core:2.0'
+    // 'design' includes a validator for the TextInputLayout view in the design support library. 
+    //compile 'com.github.deadpixelsociety.passport:design:2.0'
+    // 'support-fragment' includes support for the v4 Fragment class.
+    //compile 'com.github.deadpixelsociety.passport:support-fragment:2.0'
 }
 ````
+
 License
 -------
 ````
