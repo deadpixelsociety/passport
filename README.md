@@ -38,6 +38,14 @@ Validation supports both batch and immediate modes:
 * Immediate - All views and rules are processed until a failure is found and validation completes 
 immediately.
 
+#### Validator Factories
+Validators are provided to passport via validator factory functions.
+````
+Passport.validatorFactory({ TextViewValidator() })
+````
+Passport will assign the correct validator to a view during rule assignment based on it's class 
+type. A specific validator can be assigned instead if desired. 
+
 #### Custom Validators
 Custom validators allow for any view type to be managed. See the [SwitchCompat example](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/SwitchCompatValidator.kt).
 
