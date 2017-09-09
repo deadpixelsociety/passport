@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Set default custom validators.
-        Passport.default(SwitchCompatValidator())
-        Passport.default(TextInputLayoutValidator())
+        // Set custom validators.
+        Passport.validatorFactory({ SwitchCompatValidator() })
+        Passport.validatorFactory({ TextInputLayoutValidator() })
 
         switchView.setTag(R.id.error_view_tag, switchErrorView)
 

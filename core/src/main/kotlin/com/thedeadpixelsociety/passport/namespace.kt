@@ -7,6 +7,7 @@ import android.view.ViewGroup
 typealias Func0<R> = () -> R
 typealias Action1<T> = (T) -> Unit
 typealias Predicate<T> = (T) -> Boolean
+typealias ValidatorFactory<V, T> = () -> Validator<V, T>
 
 fun passport(func: Passport.() -> Passport) = Passport().let(func)
 

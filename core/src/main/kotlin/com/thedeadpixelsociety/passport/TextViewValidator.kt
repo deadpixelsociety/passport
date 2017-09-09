@@ -3,7 +3,7 @@ package com.thedeadpixelsociety.passport
 import android.widget.TextView
 
 /**
- * Implements a validator for an Android [TextView]. This will utilize the view's default error
+ * Implements a validator for an Android [TextView]. This will utilize the view's validatorFactory error
  * capabilities to display validation errors.
  */
 class TextViewValidator : BaseValidator<TextView, String?>() {

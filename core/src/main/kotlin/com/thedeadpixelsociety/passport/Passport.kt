@@ -11,51 +11,51 @@ import java.lang.IllegalArgumentException
  */
 class Passport {
     companion object {
-        val DEFAULT_VALIDATORS = hashMapOf<Class<*>, Validator<*, *>>()
+        val DEFAULT_VALIDATORS = hashMapOf<Class<*>, ValidatorFactory<*, *>>()
 
         init {
-            default(TextViewValidator())
-            default(EditText::class.java, TextViewValidator())
+            validatorFactory({ TextViewValidator() })
+            validatorFactory(EditText::class.java, { TextViewValidator() })
         }
 
         /**
-         * Sets the default validator for a given target class.
+         * Sets the validatorFactory validator for a given target class.
          * @param targetClass The target class.
-         * @param validator The default validator instance to use.
+         * @param factory The validatorFactory validator factory to use.
          */
-        fun <V, T> default(targetClass: Class<V>, validator: Validator<V, T>) {
-            DEFAULT_VALIDATORS[targetClass] = validator
+        fun <V, T> validatorFactory(targetClass: Class<V>, factory: ValidatorFactory<V, T>) {
+            DEFAULT_VALIDATORS[targetClass] = factory
         }
 
         /**
-         * Sets the default validator for a given target class.
-         * @param validator The default validator instance to use.
+         * Sets the validatorFactory validator for a given target class.
+         * @param factory The validatorFactory validator factory to use.
          */
-        inline fun <reified V : Any, T> default(validator: Validator<V, T>) {
-            DEFAULT_VALIDATORS[V::class.java] = validator
+        inline fun <reified V : Any, T> validatorFactory(noinline factory: ValidatorFactory<V, T>) {
+            DEFAULT_VALIDATORS[V::class.java] = factory
         }
 
         private tailrec fun <V, T> findDefault(targetClass: Class<*>): Validator<V, T>? {
             @Suppress("UNCHECKED_CAST")
-            val validator: Validator<V, T>? = DEFAULT_VALIDATORS[targetClass] as? Validator<V, T>
-            if (validator != null) return validator
+            val factory = DEFAULT_VALIDATORS[targetClass] as? ValidatorFactory<V, T>
+            if (factory != null) return factory()
             val superClass = targetClass.superclass ?: return null
             return findDefault(superClass)
         }
     }
 
     /**
-     * Creates a rule set for the given view. The default registered view validator will be used.
+     * Creates a rule set for the given view. The validatorFactory registered view validator will be used.
      * @param view The view to create rules for.
-     * @see default
+     * @see validatorFactory
      */
     fun <T> rules(view: View, func: RuleCollection<T>.() -> Unit): Passport = rules(view, view.javaClass, func)
 
     /**
-     * Creates a rule set for the given view. The default registered view validator will be used.
+     * Creates a rule set for the given view. The validatorFactory registered view validator will be used.
      * @param view The view to create rules for.
-     * @param viewClass The view class that registered the default validator.
-     * @see default
+     * @param viewClass The view class that registered the validatorFactory validator.
+     * @see validatorFactory
      */
     fun <V : View, T> rules(
             view: V,
@@ -64,7 +64,7 @@ class Passport {
     ): Passport {
         @Suppress("UNCHECKED_CAST")
         val validator = findDefault<V, T>(viewClass)
-                ?: throw IllegalArgumentException("No default validator found for view class ${viewClass.simpleName}")
+                ?: throw IllegalArgumentException("No validatorFactory validator found for view class ${viewClass.simpleName}")
         validator.func()
         view.setTag(R.id.passport_validator_tag, validator)
         return this
