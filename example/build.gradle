@@ -1,36 +1,16 @@
-buildscript {
-    ext {
-        kotlin_version = '1.1.4'
-    }
-
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
-repositories {
-    mavenCentral()
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.thedeadpixelsociety.passport.example"
-        versionCode 2
-        versionName "2.0"
+        versionCode 3
+        versionName "2.1.0"
+
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 27
     }
 
     buildTypes {
@@ -45,9 +25,11 @@ android {
     }
 }
 
+apply from: rootProject.file('dependencies.gradle')
+
 dependencies {
-    compile project(':core')
-    compile project(':design')
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "com.android.support:design:26.0.0-alpha1"
+    implementation deps.project.core
+    implementation deps.project.design
+    implementation deps.kotlin.stdlib
+    implementation deps.android.support.design
 }

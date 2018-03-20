@@ -1,16 +1,19 @@
 buildscript {
-    ext {
-        kotlin_version = '1.1.4'
-    }
+    def vers = [
+        android: '3.0.1',
+        kotlin : '1.2.21',
+        maven  : '1.5'
+    ]
 
     repositories {
         mavenCentral()
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath "com.android.tools.build:gradle:${vers.android}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${vers.kotlin}"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:${vers.maven}"
     }
 }
 
@@ -18,5 +21,6 @@ allprojects {
     repositories {
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        google()
     }
 }

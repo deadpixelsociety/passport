@@ -1,0 +1,26 @@
+def vers = [
+    kotlin : '1.2.21',
+    android: [
+        support: '27.0.2'
+    ]
+]
+
+ext.deps = [
+    project: [
+        core  : project(':core'),
+        design: project(':design')
+    ],
+    kotlin : [
+        stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jre7:${vers.kotlin}",
+    ],
+    android: [
+        support: [
+            fragment: "com.android.support:support-fragment:${vers.android.support}",
+            design  : "com.android.support:design:${vers.android.support}"
+        ],
+    ]
+]
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
