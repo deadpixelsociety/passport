@@ -9,6 +9,11 @@ enum class ValidationMethod {
      */
     BATCH,
     /**
+     * The fail fast validation method will process all validators until a failure is encountered
+     * and then proceed onto the next validator immediately.
+     */
+    FAIL_FAST,
+    /**
      * The immediate validation method will process all validators until a failure is encountered
      * and then return immediately.
      */

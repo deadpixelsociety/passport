@@ -25,7 +25,7 @@ abstract class BaseValidator<in V, T> : Validator<V, T> {
             if (res.passed) continue
             passed = false
             if (res.message != null && !res.message.isEmpty()) messages.add(res.message)
-            if (method == ValidationMethod.IMMEDIATE) break
+            if (method != ValidationMethod.BATCH) break
         }
 
         if (passed) passed(target, value)

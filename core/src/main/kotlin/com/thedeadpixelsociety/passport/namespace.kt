@@ -29,15 +29,15 @@ internal fun walkViews(root: View?, action: Action1<View>) {
     }
 }
 
-internal fun allViews(root: View?, failFast: Boolean, predicate: Predicate<View>): Boolean {
+internal fun allViews(root: View?, immediate: Boolean, predicate: Predicate<View>): Boolean {
     if (root == null) return false
     var res = predicate(root)
-    if (!res && failFast) return false
+    if (!res && immediate) return false
     if (root is ViewGroup) {
         val childResults = arrayListOf<Boolean>()
         for (i in 0 until root.childCount) {
-            val childResult = allViews(root.getChildAt(i), failFast, predicate)
-            if (!childResult && failFast) return false
+            val childResult = allViews(root.getChildAt(i), immediate, predicate)
+            if (!childResult && immediate) return false
             childResults.add(childResult)
         }
 
