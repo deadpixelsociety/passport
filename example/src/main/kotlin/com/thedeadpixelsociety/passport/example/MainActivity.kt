@@ -20,22 +20,22 @@ class MainActivity : AppCompatActivity() {
     private val switchView by lazy { findView<SwitchCompat>(R.id._switch) }
     private val switchErrorView by lazy { findView<TextView>(R.id.switch_error) }
     private val textView by lazy { findView<TextView>(R.id.text_view) }
-    private val validateButton by lazy { findView<Button>(R.id.validate_button) }
+    private val batchValidateButton by lazy { findView<Button>(R.id.batch_validate_button) }
+    private val failFastValidateButton by lazy { findView<Button>(R.id.fail_fast_validate_button) }
+    private val immediateValidateButton by lazy { findView<Button>(R.id.immediate_validate_button) }
 
-    private val validator by lazy {
-        passport {
-            rules<String?>(phoneEdit) {
-                numeric(getString(R.string.valid_phone_required))
-            }
+    private val validator by validator {
+        rules<String>(phoneEdit) {
+            numeric(getString(R.string.valid_phone_required))
+        }
 
-            rules<String?>(emailLayout) {
-                email()
-                length(8, 32)
-            }
+        rules<String>(emailLayout) {
+            email()
+            length(8, 32)
+        }
 
-            rules<Boolean>(switchView) {
-                rule({ it }, { "The switch must be on." })
-            }
+        rules<Boolean>(switchView) {
+            rule({ it }, { "The switch must be on." })
         }
     }
 
@@ -49,17 +49,21 @@ class MainActivity : AppCompatActivity() {
 
         switchView.setTag(R.id.error_view_tag, switchErrorView)
 
-        validateButton.setOnClickListener {
-            if (validator.validate(this)) {
+        fun validate(method: ValidationMethod) {
+            if (validator.validate(this, method)) {
                 textView.text = getString(R.string.valid)
             } else {
                 textView.text = getString(R.string.invalid)
             }
         }
 
+        batchValidateButton.setOnClickListener { validate(ValidationMethod.BATCH) }
+        failFastValidateButton.setOnClickListener { validate(ValidationMethod.FAIL_FAST) }
+        immediateValidateButton.setOnClickListener { validate(ValidationMethod.IMMEDIATE) }
+
         resetButton.setOnClickListener {
             validator.reset(this)
-            textView.text = null
+            textView.text = getString(R.string.waiting)
         }
     }
 }

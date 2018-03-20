@@ -9,4 +9,8 @@
     <string name="reset">reset</string>
     <string name="valid">Valid</string>
     <string name="invalid">Invalid</string>
+    <string name="batch_validate">Batch Validate</string>
+    <string name="fail_fast_validate">Fail Fast Validate</string>
+    <string name="immediate_validate">Immediate Validate</string>
+    <string name="waiting">Waiting for validation...</string>
 </resources>
