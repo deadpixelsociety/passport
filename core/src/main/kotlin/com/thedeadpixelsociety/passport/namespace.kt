@@ -13,6 +13,8 @@ typealias ValidatorFactory<V, T> = () -> Validator<V, T>
 
 fun passport(func: Passport.() -> Passport) = Passport().let(func)
 
+fun validator(func: Passport.() -> Passport) = PassportDelegate(func)
+
 @Suppress("UNCHECKED_CAST")
 internal fun <V : View> V.validatorTag() = getTag(R.id.passport_validator_tag) as? Validator<V, *>
 
