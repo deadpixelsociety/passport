@@ -4,7 +4,7 @@ package com.thedeadpixelsociety.passport
  * Implements basic functionality of the [Validator] interface.
  */
 abstract class BaseValidator<in V, T> : Validator<V, T> {
-    private val rules = hashSetOf<Rule<T>>()
+    private val rules = linkedSetOf<Rule<T>>()
 
     override fun rules(): List<Rule<T>> = rules.toList()
 
