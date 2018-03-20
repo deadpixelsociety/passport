@@ -10,11 +10,29 @@ Use the existing DSL rules or create custom rules to fit your needs. Capture the
 object to invoke validation when required.
 ````
 passport {
-    rules<String?>(phoneEdit) {
+    rules<String>(phoneEdit) {
         numeric(getString(R.string.valid_phone_required))
     }
     
-    rules<String?>(emailLayout) {
+    rules<String>(emailLayout) {
+        email()
+        length(8, 32)
+    }
+    
+    rules<Boolean>(switchView) {
+        rule({ it }, { "The switch must be on." })
+    }
+}
+````
+
+You can also use the property delegate ``validator`` to setup your Passport object.
+````
+val validationRules by validator {
+    rules<String>(phoneEdit) {
+        numeric(getString(R.string.valid_phone_required))
+    }
+    
+    rules<String>(emailLayout) {
         email()
         length(8, 32)
     }
@@ -33,8 +51,10 @@ if(validator.validate(this, ValidationMethod.IMMEDIATE)) {
     // Valid!
 }
 ````
-Validation supports both batch and immediate modes:
+Validation supports batch, fail fast, and immediate modes:
 * Batch - All views and rules are processed before validation is complete.
+* Fail Fast - All views are processed. For each view all rules are processed until the first failure 
+is encountered.
 * Immediate - All views and rules are processed until a failure is found and validation completes 
 immediately.
 
@@ -61,11 +81,11 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.deadpixelsociety.passport:core:2.0.1'
+    compile 'com.github.deadpixelsociety.passport:core:2.1.0'
     // 'design' includes a validator for the TextInputLayout view in the design support library. 
-    //compile 'com.github.deadpixelsociety.passport:design:2.0.1'
+    //compile 'com.github.deadpixelsociety.passport:design:2.1.0'
     // 'support-fragment' includes support for the v4 Fragment class.
-    //compile 'com.github.deadpixelsociety.passport:support-fragment:2.0.1'
+    //compile 'com.github.deadpixelsociety.passport:support-fragment:2.1.0'
 }
 ````
 
@@ -74,7 +94,7 @@ License
 ````
 The MIT License (MIT)
 
-Copyright (c) 2015 deadpixelsociety
+Copyright (c) 2018 deadpixelsociety
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
