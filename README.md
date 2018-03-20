@@ -81,11 +81,11 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.deadpixelsociety.passport:core:2.1.0'
+    compile 'com.github.deadpixelsociety.passport:core:2.1.1'
     // 'design' includes a validator for the TextInputLayout view in the design support library. 
-    //compile 'com.github.deadpixelsociety.passport:design:2.1.0'
+    //compile 'com.github.deadpixelsociety.passport:design:2.1.1'
     // 'support-fragment' includes support for the v4 Fragment class.
-    //compile 'com.github.deadpixelsociety.passport:support-fragment:2.1.0'
+    //compile 'com.github.deadpixelsociety.passport:support-fragment:2.1.1'
 }
 ````
 

@@ -19,7 +19,7 @@ abstract class BaseValidator<in V, T> : Validator<V, T> {
         val value = value(target)
 
         var passed = true
-        val messages = hashSetOf<String>()
+        val messages = linkedSetOf<String>()
         for (rule in rules) {
             val res = rule(value)
             if (res.passed) continue
@@ -35,7 +35,6 @@ abstract class BaseValidator<in V, T> : Validator<V, T> {
     }
 
     override fun reset(target: V) {
-
     }
 
     override fun passed(target: V, value: T) {

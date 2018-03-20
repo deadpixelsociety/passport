@@ -4,7 +4,7 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 
-val EMPTY_STRING = ""
+const val EMPTY_STRING = ""
 
 typealias Func0<R> = () -> R
 typealias Action1<T> = (T) -> Unit
