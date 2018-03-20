@@ -4,6 +4,8 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 
+val EMPTY_STRING = ""
+
 typealias Func0<R> = () -> R
 typealias Action1<T> = (T) -> Unit
 typealias Predicate<T> = (T) -> Boolean
@@ -15,7 +17,7 @@ fun passport(func: Passport.() -> Passport) = Passport().let(func)
 internal fun <V : View> V.validatorTag() = getTag(R.id.passport_validator_tag) as? Validator<V, *>
 
 internal fun rootView(activity: Activity): View? =
-        activity.findViewById<ViewGroup>(android.R.id.content)?.getChildAt(0)
+    activity.findViewById<ViewGroup>(android.R.id.content)?.getChildAt(0)
 
 internal fun walkViews(root: View?, action: Action1<View>) {
     if (root == null) return
