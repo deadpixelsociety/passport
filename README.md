@@ -3,7 +3,7 @@ A Kotlin-based Android view validation library with a simple DSL.
 
 [![](https://jitpack.io/v/deadpixelsociety/passport.svg)](https://jitpack.io/#deadpixelsociety/passport)
 
-[![](https://img.shields.io/jitpack/dm/github/deadpixelsociety/passport.svg)]
+![](https://img.shields.io/jitpack/dm/github/deadpixelsociety/passport.svg)
 
 Usage
 -----
