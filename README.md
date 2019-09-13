@@ -69,7 +69,7 @@ Passport will assign the correct validator to a view during rule assignment base
 type. A specific validator can be assigned instead if desired. 
 
 #### Custom Validators
-Custom validators allow for any view type to be managed. See the [SwitchCompat example](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/SwitchMaterialValidator.kt).
+Custom validators allow for any view type to be managed. See the [SwitchMaterial example](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/SwitchMaterialValidator.kt).
 
 See the [example activity](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/MainActivity.kt).
 
