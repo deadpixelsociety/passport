@@ -2,19 +2,19 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
-version = '2.2'
-group = 'com.github.deadpixelsociety'
+version = App.version_name
+group = App.group
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.2'
+    compileSdkVersion Android.compile_sdk
+    buildToolsVersion Android.build_tools
 
     defaultConfig {
-        versionCode 5
-        versionName "2.2"
+        versionCode App.version_code
+        versionName App.version_name
 
-        minSdkVersion 11
-        targetSdkVersion 29
+        minSdkVersion Android.min_sdk
+        targetSdkVersion Android.target_sdk
     }
 
     compileOptions {
@@ -34,10 +34,8 @@ android {
     }
 }
 
-apply from: rootProject.file('dependencies.gradle')
-
 dependencies {
-    implementation deps.kotlin.stdlib
+    implementation Deps.kotlin_stdlib
 }
 
 task sourcesJar(type: Jar) {

@@ -1,10 +1,4 @@
 buildscript {
-    def vers = [
-        android: '3.5.0',
-        kotlin : '1.3.50',
-        maven  : '1.5'
-    ]
-
     repositories {
         mavenCentral()
         google()
@@ -12,9 +6,9 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:${vers.android}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${vers.kotlin}"
-        classpath "com.github.dcendents:android-maven-gradle-plugin:${vers.maven}"
+        classpath "com.android.tools.build:gradle:${Versions.android_gradle}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:${Versions.maven}"
     }
 }
 

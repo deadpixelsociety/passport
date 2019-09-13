@@ -2,15 +2,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.2'
+    compileSdkVersion Android.compile_sdk
+    buildToolsVersion Android.build_tools
 
     defaultConfig {
-        versionCode 5
-        versionName "2.2"
+        versionCode App.version_code
+        versionName App.version_name
 
-        minSdkVersion 14
-        targetSdkVersion 29
+        minSdkVersion Android.min_sdk
+        targetSdkVersion Android.target_sdk
     }
 
     buildTypes {
@@ -24,12 +24,8 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
-
-apply from: rootProject.file('dependencies.gradle')
-
 dependencies {
-    implementation deps.project.core
-    implementation deps.project.design
-    implementation deps.kotlin.stdlib
-    implementation deps.android.support.design
+    implementation project(':core')
+    implementation Deps.kotlin_stdlib
+    implementation Deps.android_support_design
 }
