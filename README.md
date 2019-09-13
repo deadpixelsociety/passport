@@ -88,7 +88,7 @@ dependencies {
     // 'material' includes a validator for the TextInputLayout view in the AndroidX material library. 
     //compile 'com.github.deadpixelsociety.passport:material:2.2'
     // 'fragment' includes a support for the AndroidX Fragment class. 
-    //compile 'com.github.deadpixelsociety.passport:material:2.2'
+    //compile 'com.github.deadpixelsociety.passport:fragment:2.2'
 
     // 'design' includes a validator for the TextInputLayout view in the legacy design support library. 
     //compile 'com.github.deadpixelsociety.passport:design:2.2'
