@@ -24,8 +24,10 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
+
 dependencies {
     implementation project(':core')
+    implementation project(':material')
     implementation Deps.kotlin_stdlib
-    implementation Deps.android_support_design
+    implementation Deps.androidx_material
 }

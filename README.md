@@ -69,7 +69,7 @@ Passport will assign the correct validator to a view during rule assignment base
 type. A specific validator can be assigned instead if desired. 
 
 #### Custom Validators
-Custom validators allow for any view type to be managed. See the [SwitchCompat example](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/SwitchCompatValidator.kt).
+Custom validators allow for any view type to be managed. See the [SwitchCompat example](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/SwitchMaterialValidator.kt).
 
 See the [example activity](https://github.com/deadpixelsociety/passport/blob/master/example/src/main/kotlin/com/thedeadpixelsociety/passport/example/MainActivity.kt).
 
@@ -83,11 +83,17 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.deadpixelsociety.passport:core:2.1.1'
-    // 'design' includes a validator for the TextInputLayout view in the design support library. 
-    //compile 'com.github.deadpixelsociety.passport:design:2.1.1'
-    // 'support-fragment' includes support for the v4 Fragment class.
-    //compile 'com.github.deadpixelsociety.passport:support-fragment:2.1.1'
+    compile 'com.github.deadpixelsociety.passport:core:2.2'
+
+    // 'material' includes a validator for the TextInputLayout view in the AndroidX material library. 
+    //compile 'com.github.deadpixelsociety.passport:material:2.2'
+    // 'fragment' includes a support for the AndroidX Fragment class. 
+    //compile 'com.github.deadpixelsociety.passport:material:2.2'
+
+    // 'design' includes a validator for the TextInputLayout view in the legacy design support library. 
+    //compile 'com.github.deadpixelsociety.passport:design:2.2'
+    // 'support-fragment' includes support for the legacy v4 Fragment class.
+    //compile 'com.github.deadpixelsociety.passport:support-fragment:2.2'
 }
 ````
 
@@ -96,7 +102,7 @@ License
 ````
 The MIT License (MIT)
 
-Copyright (c) 2018 deadpixelsociety
+Copyright (c) 2019 deadpixelsociety
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

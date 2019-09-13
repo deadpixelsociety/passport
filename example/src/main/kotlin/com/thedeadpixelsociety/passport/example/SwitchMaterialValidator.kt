@@ -1,23 +1,23 @@
 package com.thedeadpixelsociety.passport.example
 
-import android.support.v7.widget.SwitchCompat
 import android.widget.TextView
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.thedeadpixelsociety.passport.BaseValidator
 
-class SwitchCompatValidator : BaseValidator<SwitchCompat, Boolean>() {
-    override fun value(target: SwitchCompat) = target.isChecked
+class SwitchMaterialValidator : BaseValidator<SwitchMaterial, Boolean>() {
+    override fun value(target: SwitchMaterial) = target.isChecked
 
-    override fun passed(target: SwitchCompat, value: Boolean) {
+    override fun passed(target: SwitchMaterial, value: Boolean) {
         val errorView = target.getTag(R.id.error_view_tag) as? TextView
         errorView?.text = null
     }
 
-    override fun failed(target: SwitchCompat, value: Boolean, messages: List<String>) {
+    override fun failed(target: SwitchMaterial, value: Boolean, messages: List<String>) {
         val errorView = target.getTag(R.id.error_view_tag) as? TextView
         errorView?.text = messages.joinToString(" ")
     }
 
-    override fun reset(target: SwitchCompat) {
+    override fun reset(target: SwitchMaterial) {
         val errorView = target.getTag(R.id.error_view_tag) as? TextView
         errorView?.text = null
     }
