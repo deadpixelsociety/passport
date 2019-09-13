@@ -1,5 +1,5 @@
 def vers = [
-    kotlin : '1.2.21',
+    kotlin : '1.3.50',
     android: [
         support: '27.0.2'
     ]
@@ -11,7 +11,7 @@ ext.deps = [
         design: project(':design')
     ],
     kotlin : [
-        stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jre7:${vers.kotlin}",
+        stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${vers.kotlin}",
     ],
     android: [
         support: [

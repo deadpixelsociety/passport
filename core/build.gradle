@@ -2,19 +2,19 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
-version = '2.1.1'
+version = '2.2'
 group = 'com.github.deadpixelsociety'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
-        versionCode 4
-        versionName "2.1.1"
+        versionCode 5
+        versionName "2.2"
 
         minSdkVersion 11
-        targetSdkVersion 27
+        targetSdkVersion 29
     }
 
     compileOptions {
